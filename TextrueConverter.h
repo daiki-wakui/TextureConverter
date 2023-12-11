@@ -28,14 +28,14 @@ private:
 	//フォルダパスとファイル名を分離する
 	void SeparateFilePath(const std::wstring& filePath);
 
-	void SaveDDSTextureToFile();
+	void SaveDDSTextureToFile(int numOption, char* options[]);
 
 	//ワイド文字列変換
 	static std::wstring ConvertMultiByteStringToWideString(const std::string& mString);
 
 public:
 
-	void ConvertTextrueWICToDDS(const std::string& filePath);
+	void ConvertTextrueWICToDDS(const std::string& filePath,int numOption = 0 , char* options[] = nullptr);
 
 
 	static void OutputUsage();

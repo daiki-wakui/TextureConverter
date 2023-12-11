@@ -63,15 +63,27 @@ void TextrueConverter::SeparateFilePath(const std::wstring& filePath)
 	fileName_ = exceptExt;
 }
 
-void TextrueConverter::SaveDDSTextureToFile()
+void TextrueConverter::SaveDDSTextureToFile(int numOption, char* options[])
 {
 	HRESULT result;
 	ScratchImage mipChain;
 
+
+	size_t mipLevel = 0;
+
+	//ミップマップレベル指定を検索
+	for (int i = 0; i < numOption; i++) {
+		if (std::string(options[i]) == "-ml") {
+			//ミップマップレベル指定
+			mipLevel = std::stoi(options[i + 1]);
+			break;
+		}
+	}
+
 	//ミップマップ作成
 	result = GenerateMipMaps(scratchImage_.GetImages(),
 		scratchImage_.GetImageCount(), scratchImage_.GetMetadata(),
-		TEX_FILTER_DEFAULT, 0, mipChain);
+		TEX_FILTER_DEFAULT, mipLevel, mipChain);
 
 	if (SUCCEEDED(result)) {
 		//イメージとメタデータを書き換える
@@ -117,20 +129,20 @@ std::wstring TextrueConverter::ConvertMultiByteStringToWideString(const std::str
 	return wString;
 }
 
-void TextrueConverter::ConvertTextrueWICToDDS(const std::string& filePath)
+void TextrueConverter::ConvertTextrueWICToDDS(const std::string& filePath, int numOption, char* options[])
 {
 	//テクスチャを読み込む
 	LoadWICTextureFromFile(filePath);
 
 	//DDS形式に変換して書き出す
-	SaveDDSTextureToFile();
+	SaveDDSTextureToFile(numOption, options);
 }
 
 void TextrueConverter::OutputUsage()
 {
 	printf("画像ファイルをWIC形式に変換します。\n");
 	printf("\n");
-	printf("TextureConverter[ドライブ：][パス][ファイル名]\n");
+	printf("TextureConverter[ドライブ：][パス]ファイル名[-ml level]\n");
 	printf("\n");
 	printf("[ドライブ：][パス][ファイル名] 変換したいWIC形式の画像ファイルを指定します。\n");
 

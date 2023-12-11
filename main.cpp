@@ -11,18 +11,23 @@ enum Argument{
 };
 
 int main(int argc, char* argv[]) {
-
 	if (argc < NumArgument) {
 		TextrueConverter::OutputUsage();
 		return 0;
 	}
+
+	//オプションの数
+	int numOptions = argc - NumArgument;
+	//オプション配列
+	char** options = argv + NumArgument;
 
 	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 	assert(argc >= NumArgument);
 
 	TextrueConverter converter;
 
-	converter.ConvertTextrueWICToDDS(argv[kFilePath]);
+	//テクスチャ変換
+	converter.ConvertTextrueWICToDDS(argv[kFilePath], numOptions, options);
 
 	CoUninitialize();
 
@@ -36,7 +41,7 @@ int main(int argc, char* argv[]) {
 	//	printf("\n");
 	//}
 
-	system("pause");
+	//system("pause");
 
 	return 0;
 }
