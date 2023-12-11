@@ -12,6 +12,10 @@ enum Argument{
 
 int main(int argc, char* argv[]) {
 
+	if (argc < NumArgument) {
+		TextrueConverter::OutputUsage();
+		return 0;
+	}
 
 	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 	assert(argc >= NumArgument);
@@ -32,7 +36,7 @@ int main(int argc, char* argv[]) {
 	//	printf("\n");
 	//}
 
-	//system("pause");
+	system("pause");
 
 	return 0;
 }

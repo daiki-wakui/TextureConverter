@@ -37,5 +37,7 @@ public:
 
 	void ConvertTextrueWICToDDS(const std::string& filePath);
 
+
+	static void OutputUsage();
 };
 

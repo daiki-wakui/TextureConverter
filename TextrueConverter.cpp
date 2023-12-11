@@ -125,3 +125,13 @@ void TextrueConverter::ConvertTextrueWICToDDS(const std::string& filePath)
 	//DDS形式に変換して書き出す
 	SaveDDSTextureToFile();
 }
+
+void TextrueConverter::OutputUsage()
+{
+	printf("画像ファイルをWIC形式に変換します。\n");
+	printf("\n");
+	printf("TextureConverter[ドライブ：][パス][ファイル名]\n");
+	printf("\n");
+	printf("[ドライブ：][パス][ファイル名] 変換したいWIC形式の画像ファイルを指定します。\n");
+
+}
